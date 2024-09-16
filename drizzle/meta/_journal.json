@@ -1,0 +1,97 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1720454626549,
+      "tag": "0000_nosy_nicolaos",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1721745824417,
+      "tag": "0001_woozy_madame_masque",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1721848754415,
+      "tag": "0002_shallow_black_panther",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1721848867141,
+      "tag": "0003_late_puff_adder",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1722008779685,
+      "tag": "0004_elite_owl",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1722010311384,
+      "tag": "0005_sudden_tattoo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1723043999864,
+      "tag": "0006_fantastic_goliath",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1723126462184,
+      "tag": "0007_soft_smasher",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1723748839449,
+      "tag": "0008_solid_invaders",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1724772658588,
+      "tag": "0009_hard_power_pack",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1725637902261,
+      "tag": "0010_famous_titanium_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1725981285868,
+      "tag": "0011_brave_harry_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1725984810305,
+      "tag": "0012_hesitant_ultimo",
+      "breakpoints": true
+    }
+  ]
+}

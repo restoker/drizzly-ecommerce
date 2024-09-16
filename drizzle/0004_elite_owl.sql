@@ -1,0 +1,1 @@
+ALTER TABLE "emailToken" ADD COLUMN "email" text NOT NULL;
