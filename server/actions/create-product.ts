@@ -22,7 +22,7 @@ export const createProductAction = actionClient
                     ...(description && { description }),
                 }).where(eq(products.id, id)).returning();
                 revalidatePath('/dashboard/products')
-                return { ok: true, mad: `${productUpdated[0].title} was updated` }
+                return { ok: true, msg: `${productUpdated[0].title} was updated` }
             }
             if (!id) {
                 const productAdded = await db.insert(products).values({
