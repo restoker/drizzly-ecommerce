@@ -12,13 +12,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { modalStore } from "@/store/alertsStore";
 import Link from "next/link";
+import { VariantsWithImagesTags } from "@/lib/infer-type";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import ProductVariant from "./ui/ProductVariant";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 type ProductColumn = {
     title: string;
     price: number;
     // description: string;
     image: string;
-    variants: any;
+    variants: VariantsWithImagesTags[];
     id: string;
     created: string | null;
 }
@@ -27,6 +31,12 @@ export const columns: ColumnDef<ProductColumn>[] = [
     {
         accessorKey: 'id',
         header: 'ID',
+        cell: ({ row }) => {
+            const idProduct = row.getValue('id') as string;
+            return (
+                <p className="line-clamp-1">{idProduct}</p>
+            );
+        }
     },
     {
         accessorKey: 'title',
@@ -36,7 +46,51 @@ export const columns: ColumnDef<ProductColumn>[] = [
         accessorKey: 'variants',
         header: 'Variants',
         cell: ({ row }) => {
-            const variants = row.getValue('variants')
+            const variants = row.getValue('variants') as VariantsWithImagesTags[];
+            return (
+                <div>
+                    {variants.map((variant) => (
+                        <div key={variant.id}>
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <ProductVariant
+                                            productId={variant.productId}
+                                            variant={variant}
+                                            editMode={true}
+                                        >
+                                            <div
+                                                className={`w-5 h-5 rounded-full bg-[${variant.color}]`}
+                                                key={variant.id}
+                                            />
+                                        </ProductVariant>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>{variant.productType}</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    ))}
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild className="flex justify-center w-full">
+                                <span>
+                                    <ProductVariant
+                                        editMode={false}
+                                    // productId={row.original.id}
+                                    >
+                                        <PlusCircleIcon className="w-4 h-4" />
+                                    </ProductVariant>
+                                </span>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Create a new product variant</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
+            );
         }
     },
     {

@@ -5,15 +5,15 @@ import type {
 } from "drizzle-orm";
 import * as schema from "@/server/schema";
 
-type Schema = typeof schema
-type TSchema = ExtractTablesWithRelations<Schema>
+type Schema = typeof schema;
+type TSchema = ExtractTablesWithRelations<Schema>;
 
 export type IncludeRelation<TableName extends keyof TSchema> = DBQueryConfig<
     "one" | "many",
     boolean,
     TSchema,
     TSchema[TableName]
->["with"]
+>["with"];
 
 export type InferResultType<
     TableName extends keyof TSchema,
@@ -24,21 +24,30 @@ export type InferResultType<
     {
         with: With
     }
->
+>;
 
 export type VariantsWithImagesTags = InferResultType<
     "productVariant",
-    { variantImages: true; variantTags: true }
->
+    {
+        variantImages: true;
+        variantTags: true;
+    }
+>;
 
 export type ProductsWithVariants = InferResultType<
     "products",
-    { productVariant: true }
->
+    {
+        productVariant: true;
+    }
+>;
 
 export type VariantsWithProduct = InferResultType<
     "productVariant",
-    { variantImages: true; variantTags: true; product: true }
->
+    {
+        variantImages: true;
+        variantTags: true;
+        product: true;
+    }
+>;
 
 // export type Products = InferSelectModel<typeof products>;
