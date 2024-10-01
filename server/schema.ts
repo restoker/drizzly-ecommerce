@@ -1,4 +1,5 @@
 // import { sql } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import {
     timestamp,
     pgTable,
@@ -8,6 +9,7 @@ import {
     boolean,
     pgEnum,
     real,
+    serial,
     // uuid,
 } from "drizzle-orm/pg-core"
 // import postgres from "postgres"
@@ -107,3 +109,60 @@ export const products = pgTable('products', {
     price: real('price').notNull(),
     // createdAt: timestamp("created_at"),
 })
+
+export const productVariant = pgTable('productVariant', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    color: text('color').notNull(),
+    productType: text('productType').notNull(),
+    updated: timestamp('updated').defaultNow(),
+    productId: text("productId").$defaultFn(() => crypto.randomUUID()).notNull().references(() => products.id, { onDelete: 'cascade' }),
+});
+
+export const variantImages = pgTable('variantImages', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    url: text('url').notNull(),
+    size: real('size').notNull(),
+    name: text('name').notNull(),
+    order: real('order').notNull(),
+    variantId: text("variantId").$defaultFn(() => crypto.randomUUID()).notNull()
+        .references(() => productVariant.id, { onDelete: 'cascade' })
+});
+
+export const variantTags = pgTable('variantTags', {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    tag: text('tag').notNull(),
+    variantId: text("variantId").$defaultFn(() => crypto.randomUUID()).notNull()
+        .references(() => productVariant.id, { onDelete: 'cascade' })
+});
+
+export const productRelations = relations(products, ({ one, many }) => ({
+    productVariant: many(productVariant, { relationName: 'productVariant' })
+}));
+
+export const productVariantsRelations = relations(productVariant, ({ one, many }) => ({
+    products: one(products, {
+        fields: [productVariant.productId],
+        references: [products.id],
+        relationName: "productVariants"
+    }),
+    variantImages: many(variantImages, { relationName: 'variantImages' }),
+    variantTags: many(variantTags, { relationName: 'variantTags' }),
+}));
+
+
+export const variantImagesRelations = relations(variantImages, ({ one, many }) => ({
+    productVariant: one(productVariant, {
+        fields: [variantImages.variantId],
+        references: [productVariant.id],
+        relationName: 'variantImages',
+    })
+}));
+
+
+export const variantTagsRelations = relations(variantTags, ({ one, many }) => ({
+    productVariant: one(productVariant, {
+        fields: [variantTags.variantId],
+        references: [productVariant.id],
+        relationName: 'variantTags'
+    })
+}));

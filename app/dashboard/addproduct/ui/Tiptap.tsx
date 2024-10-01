@@ -1,7 +1,7 @@
 'use client'
 
 import { Toggle } from '@/components/Toggle'
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent, FloatingMenu, BubbleMenu } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Bold, Italic, List, ListOrdered, Strikethrough } from 'lucide-react'
 import { useEffect } from 'react'
@@ -10,6 +10,7 @@ import { UseFormSetValue } from 'react-hook-form'
 const Tiptap = ({ value, setValue }: { value: string, setValue: UseFormSetValue<any> }) => {
     // const { setValue } = useFormContext();
     const editor = useEditor({
+        immediatelyRender: false,
         extensions: [
             StarterKit.configure({
                 orderedList: {
@@ -26,7 +27,7 @@ const Tiptap = ({ value, setValue }: { value: string, setValue: UseFormSetValue<
         ],
         editorProps: {
             attributes: {
-                class: 'block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent dark:text-gray-200 px-4'
+                class: 'block w-full rounded-md border-0 shadow-sm ring-1 ring-inset ring-gray-200 placeholder:text-gray-40 0 focus:ring-2 focus:ring-inset focus:ring-amber-600 sm:py-1.5 sm:text-sm sm:leading-6 bg-transparent dark:text-gray-200 px-4'
             }
         },
         content: value,
@@ -35,15 +36,15 @@ const Tiptap = ({ value, setValue }: { value: string, setValue: UseFormSetValue<
             setValue('description', content, {
                 shouldValidate: true,
                 shouldDirty: true,
-                shouldTouch: true,
+                // shouldTouch: true,
             });
+            // onChange={({ target }) => setValue('description', target.value)}
         },
     });
 
     useEffect(() => {
         if (editor?.isEmpty) editor.commands.setContent(value);
     }, [value]);
-
 
     return (
         <div className='flex flex-col gap-2'>
@@ -97,6 +98,8 @@ const Tiptap = ({ value, setValue }: { value: string, setValue: UseFormSetValue<
                 </div>
                 : null}
             <EditorContent editor={editor} />
+            {/* <FloatingMenu editor={editor}>This is the floating menu</FloatingMenu>
+            <BubbleMenu editor={null}>This is the bubble menu</BubbleMenu> */}
         </div>
     );
 }

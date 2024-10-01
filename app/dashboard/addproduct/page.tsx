@@ -5,7 +5,7 @@ import ProductForm from "./ui/ProductForm";
 export default async function AddProductPage() {
     const session = await auth();
 
-    if (session?.user.role !== 'admin') redirect('/dashboard/settings');
+    if (session?.user.role !== 'admin') return redirect('/dashboard/settings');
 
     return (
         <div className="py-16 min-h-svh">

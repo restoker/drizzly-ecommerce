@@ -75,6 +75,7 @@ const SettingsForm = ({ session }: Props) => {
     // console.log(password);
     const onSubmit = (data: IFormInput) => {
         // console.log(data);
+        // console.log(data);
         execute(data);
     }
 
@@ -201,7 +202,7 @@ const SettingsForm = ({ session }: Props) => {
                                                 message: "Entered value does not match email format"
                                             }
                                         })}
-                                        disabled={status === 'executing' || avatarUploading || session.user.isOauth}
+                                        disabled={true}
                                         id="email"
                                         name="email"
                                         type="email"

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Logo, Logomark } from "./Logo";
 import MenuRight from "./MenuRight";
 import { ThemeSelector } from "./ThemeSelector";
@@ -8,9 +8,12 @@ import Link from "next/link";
 import { MobileNavigation } from "./MobileNavigation";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+// import { Tracker } from '@alienkitty/space.js';
 
 const Header = () => {
     const path = usePathname();
+    const logoRef = useRef();
+
     // console.log(path);
     let [isScrolled, setIsScrolled] = useState(false);
     useEffect(() => {
@@ -23,6 +26,17 @@ const Header = () => {
             window.removeEventListener('scroll', onScroll)
         }
     }, [])
+
+
+    // const tracker = new Tracker({
+    //     isVisible: true,
+    // });
+    // tracker.animateIn()
+    // document.body.appendChild(tracker.element);
+    // console.log(tracker);
+    // useEffect(() => {
+    // }, []);
+
 
     return (
         <>
@@ -44,7 +58,7 @@ const Header = () => {
                         </div>
                         <div className="relative flex flex-grow basis-0 items-center">
                             <Link href="/" aria-label="Home page">
-                                <Logomark className="h-9 w-9 lg:hidden" />
+                                {/* <Logomark className="h-9 w-9 lg:hidden" /> */}
                                 <Logo className="hidden h-9 w-auto fill-slate-700 lg:block dark:fill-sky-100" />
                             </Link>
                         </div>
