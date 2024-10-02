@@ -114,8 +114,8 @@ export const productVariant = pgTable('productVariant', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     color: text('color').notNull(),
     productType: text('productType').notNull(),
-    updated: timestamp('updated').defaultNow(),
     productId: text("productId").$defaultFn(() => crypto.randomUUID()).notNull().references(() => products.id, { onDelete: 'cascade' }),
+    updated: timestamp('updated').defaultNow(),
 });
 
 export const variantImages = pgTable('variantImages', {
