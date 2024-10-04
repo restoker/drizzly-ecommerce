@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { InputTags } from "./InputTags";
 
 interface FormProps {
     editMode: boolean,
@@ -86,9 +87,6 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                                             {...field}
                                         />
                                     </FormControl>
-                                    {/* <FormDescription>
-                                        This is your public display name.
-                                    </FormDescription> */}
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -98,9 +96,12 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                             name="tags"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Variant Color</FormLabel>
+                                    <FormLabel>Tags</FormLabel>
                                     <FormControl>
-                                        {/* <InputTags /> */}
+                                        <InputTags
+                                            {...field}
+                                            onChange={(e) => field.onChange(e)}
+                                        />
                                     </FormControl>
                                     {/* <FormDescription>
                                         This is your public display name.
