@@ -102,9 +102,6 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                                     <FormControl>
                                         {/* <InputTags /> */}
                                     </FormControl>
-                                    {/* <FormDescription>
-                                        This is your public display name.
-                                    </FormDescription> */}
                                     <FormMessage />
                                 </FormItem>
                             )}
