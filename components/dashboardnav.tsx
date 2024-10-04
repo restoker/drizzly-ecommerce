@@ -50,7 +50,7 @@ const DashboardNav = ({ session }: Props) => {
     const allLinks = [...userLinks, ...adminLinks];
     return (
         <>
-            <nav className="py-2 overflow-auto absolute mb-4">
+            <nav className="py-2 absolute mb-4">
                 <ul className="flex gap-6 text-xs font-bold">
                     <AnimatePresence>
                         {allLinks.map((link) => (

@@ -1,8 +1,8 @@
-import { getSessionUser } from "@/server/actions/getSession";
+// import { getSessionUser } from "@/server/actions/getSession";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import React, { MouseEventHandler } from "react";
 
 interface Props {
     usuario: Session | undefined;
