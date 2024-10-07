@@ -1,8 +1,8 @@
 // import { auth } from "@/server/auth";
 "use client";
-import { Menu, MenuButton, MenuItems, Popover, PopoverPanel } from "@headlessui/react";
+import { Popover } from "@headlessui/react";
 import { MagnifyingGlassIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
-import UserMenu from "./UserMenu";
+// import UserMenu from "./UserMenu";
 import { searchStore } from "@/store/searchStore";
 import { useEffect, useState } from "react";
 import { getSessionUser } from "@/server/actions/getSession";
@@ -11,31 +11,15 @@ import { signOut } from "next-auth/react";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 
 } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
 import Image from "next/image";
 import { LogIn, LogOut, Settings, TruckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback } from "./ui/avatar";
-
-const user = {
-    name: 'Chelsea Hagon',
-    email: 'chelsea.hagon@example.com',
-    imageUrl:
-        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-
-// const userNavigation = [
-//     { name: 'Your Profile', href: '#' },
-//     { name: 'Settings', href: '#' },
-//     { name: 'Sign out', href: '#' },
-// ]
 
 const MenuRight = () => {
 
@@ -105,14 +89,6 @@ const MenuRight = () => {
                                             </AvatarFallback>
                                         )}
                                     </Avatar>
-
-                                    {/* {user?.user?.image 
-                                    ? 
-                                    <img alt="" src={user?.user?.image} className="h-8 w-8 rounded-full" /> 
-                                    : 
-                                    <img src="/img/avatar.png" alt="" className="h-8 w-8 rounded-full object-cover" />
-                                    } */}
-
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="w-64 p-6" align="end">
                                     {user?.user ? <div className="mb-4 p-4 flex flex-col gap-1 items-center rounded-lg  bg-primary/10">
