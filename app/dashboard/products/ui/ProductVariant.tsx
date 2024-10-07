@@ -11,6 +11,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { InputTags } from "./InputTags";
+import VariantImages from "./variant-images";
 
 interface FormProps {
     editMode: boolean,
@@ -46,7 +47,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
             <DialogTrigger>
                 {children}
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="lg:max-w-screen-md overflow-y-scroll max-h-screen">
                 <DialogHeader>
                     <DialogTitle>{editMode ? 'Edit' : 'Create'} variant</DialogTitle>
                     <DialogDescription>
@@ -107,7 +108,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                                 </FormItem>
                             )}
                         />
-                        {/* <VariantImages /> */}
+                        <VariantImages />
                         {editMode && variant && (
                             <Button
                                 type="button"
