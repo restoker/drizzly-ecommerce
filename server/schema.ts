@@ -107,14 +107,13 @@ export const products = pgTable('products', {
     title: text('title').notNull(),
     created: timestamp('created').defaultNow(),
     price: real('price').notNull(),
-    // createdAt: timestamp("created_at"),
 })
 
 export const productVariant = pgTable('productVariant', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     color: text('color').notNull(),
     productType: text('productType').notNull(),
-    productId: text("productId").$defaultFn(() => crypto.randomUUID()).notNull().references(() => products.id, { onDelete: 'cascade' }),
+    productId: text("productId").notNull().references(() => products.id, { onDelete: 'cascade' }),
     updated: timestamp('updated').defaultNow(),
 });
 
@@ -124,19 +123,19 @@ export const variantImages = pgTable('variantImages', {
     size: real('size').notNull(),
     name: text('name').notNull(),
     order: real('order').notNull(),
-    variantId: text("variantId").$defaultFn(() => crypto.randomUUID()).notNull()
+    variantId: text("variantId").notNull()
         .references(() => productVariant.id, { onDelete: 'cascade' })
 });
 
 export const variantTags = pgTable('variantTags', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     tag: text('tag').notNull(),
-    variantId: text("variantId").$defaultFn(() => crypto.randomUUID()).notNull()
+    variantId: text("variantId").notNull()
         .references(() => productVariant.id, { onDelete: 'cascade' })
 });
 
 export const productRelations = relations(products, ({ one, many }) => ({
-    productVariant: many(productVariant, { relationName: 'productVariant' })
+    productVariant: many(productVariant, { relationName: 'productVariants' })
 }));
 
 export const productVariantsRelations = relations(productVariant, ({ one, many }) => ({
