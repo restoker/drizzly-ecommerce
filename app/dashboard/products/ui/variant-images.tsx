@@ -52,6 +52,20 @@ const VariantImages = () => {
                                 }}
                                 onClientUploadComplete={(files) => {
                                     const images = getValues('variantImages');
+                                    images.map((img, i) => {
+                                        if (img.url.search('blob:') === 0) {
+                                            const image = files.find((img) => img.name === field.name);
+                                            if (image) {
+                                                update(i, {
+                                                    url: image.url,
+                                                    name: image.name,
+                                                    size: image.size,
+                                                    key: image.key,
+                                                })
+                                            }
+                                        }
+                                    });
+                                    return;
                                 }}
                                 config={{ mode: 'auto' }}
                             />
@@ -75,7 +89,7 @@ const VariantImages = () => {
                     <TableBody>
                         {fields.map((field, i) => {
                             return (
-                                <TableRow className={
+                                <TableRow key={`key-${i}`} className={
                                     cn(field.url.search('blob:') === 0
                                         ?
                                         'animate-pulse transition-all'

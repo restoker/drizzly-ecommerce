@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const productVariantSchema = z.object({
+    id: z.string().uuid().optional(),
     productId: z.string().uuid(),
-    id: z.string().uuid(),
     editMode: z.boolean(),
     productType: z.string().min(3, { message: "Product type must be at least 3 characters long" }),
     color: z.string().min(3, { message: "Color must be at least 3 characters long" }),

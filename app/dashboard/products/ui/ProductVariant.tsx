@@ -7,11 +7,14 @@ import { Input } from "@/components/ui/input";
 import { VariantsWithImagesTags } from "@/lib/infer-type";
 import { productVariantSchema } from "@/types/product-variant-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { InputTags } from "./InputTags";
 import VariantImages from "./variant-images";
+import { useAction } from "next-safe-action/hooks";
+import { createVariantAction } from "@/server/actions/create-product-variant";
+import { toast } from "sonner";
 
 interface FormProps {
     editMode: boolean,
@@ -36,10 +39,57 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
         mode: "all",
     });
 
+    const setEdit = () => {
+        if (!editMode) {
+            form.reset();
+            return;
+        }
+        if (editMode && variant) {
+            form.setValue('editMode', true);
+            form.setValue('id', variant.id);
+            form.setValue('productId', variant.productId);
+            form.setValue('productType', variant.productType);
+            form.setValue('tags', variant.variantTags.map((tag) => {
+                return tag.tag;
+            }));
+            form.setValue('variantImages', variant.variantImages.map((image) => ({
+                name: image.name,
+                size: image.size,
+                url: image.url,
+            }))
+            )
+        }
+    }
+
+    useEffect(() => {
+        // if (!editMode) return;
+        setEdit();
+    }, [])
+
+
+    const { execute, status } = useAction(createVariantAction, {
+        onExecute: () => {
+            toast.loading('Creating Product');
+        },
+        onSuccess: ({ data }) => {
+            if (data) {
+                if (data.ok) {
+                    toast.success(data.msg, { dismissible: true });
+                } else {
+                    toast.error(data.msg, { dismissible: true });
+                }
+            }
+        },
+        onError: () => {
+            toast.error('Error on Server', { dismissible: true });
+        }
+    });
+
     function onSubmit(values: z.infer<typeof productVariantSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
+        // console.log(values)
+        execute(values)
     }
 
     return (
@@ -119,7 +169,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                                 Delete Variant
                             </Button>
                         )}
-                        <Button type="submit">{editMode ? 'Create variant' : 'Edit variant'}</Button>
+                        <Button type="submit">{editMode ? 'Edit variant' : 'Create variant'}</Button>
                     </form>
                 </Form>
             </DialogContent>
