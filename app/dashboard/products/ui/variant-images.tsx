@@ -52,15 +52,15 @@ const VariantImages = () => {
                                 }}
                                 onClientUploadComplete={(files) => {
                                     const images = getValues('variantImages');
-                                    images.map((img, i) => {
-                                        if (img.url.search('blob:') === 0) {
-                                            const image = files.find((img) => img.name === field.name);
-                                            if (image) {
+                                    images.map((image, i) => {
+                                        if (image.url.search('blob:') === 0) {
+                                            const imagen = files.find((img) => img.name === image.name);
+                                            if (imagen) {
                                                 update(i, {
-                                                    url: image.url,
-                                                    name: image.name,
-                                                    size: image.size,
-                                                    key: image.key,
+                                                    url: imagen.url,
+                                                    name: imagen.name,
+                                                    size: imagen.size,
+                                                    key: imagen.key,
                                                 })
                                             }
                                         }
@@ -68,6 +68,9 @@ const VariantImages = () => {
                                     return;
                                 }}
                                 config={{ mode: 'auto' }}
+                                onUploadProgress={() => {
+                                    console.log('cargando');
+                                }}
                             />
                         </FormControl>
                         <FormMessage />

@@ -39,8 +39,8 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TData, TValue>) {
-
+export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+  // console.log(data);
   const [sort, setSort] = useState<SortingState>([]);
   const [columnfilters, setColumnfilters] = useState<ColumnFiltersState>([]);
 
@@ -56,8 +56,6 @@ export function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TDat
       columnFilters: columnfilters,
     }
   });
-
-
 
   return (
     <div className="rounded-md border my-20 h-full">
@@ -120,6 +118,7 @@ export function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TDat
                 )}
               </TableBody>
             </Table>
+            {/* botones para next and previous page */}
             <div className="flex items-center justify-end gap-4">
               <Button
                 variant={'outline'}
@@ -140,11 +139,7 @@ export function DataTable<TData, TValue>({ columns, data, }: DataTableProps<TDat
             </div>
           </div>
         </CardContent>
-
       </Card>
-
-
-
     </div>
   )
 }

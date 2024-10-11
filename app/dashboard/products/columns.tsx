@@ -24,7 +24,7 @@ type ProductColumn = {
     image: string;
     variants: VariantsWithImagesTags[];
     id: string;
-    created: string | null;
+    // created: string | null;
 }
 
 export const columns: ColumnDef<ProductColumn>[] = [
@@ -47,6 +47,8 @@ export const columns: ColumnDef<ProductColumn>[] = [
         header: 'Variants',
         cell: ({ row }) => {
             const variants = row.getValue('variants') as VariantsWithImagesTags[];
+            console.log(variants);
+            console.log(variants);
             return (
                 <div className="flex gap-2">
                     {variants.map((variant) => (
@@ -122,10 +124,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
             );
         }
     },
-    {
-        accessorKey: 'created',
-        header: 'Creado',
-    },
+    // {
+    //     accessorKey: 'created',
+    //     header: 'Creado',
+    // },
     {
         id: 'actions',
         header: 'Actions',

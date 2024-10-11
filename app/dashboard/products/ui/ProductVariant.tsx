@@ -89,7 +89,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         // console.log(values)
-        execute(values)
+        execute(values);
     }
 
     return (
@@ -161,6 +161,11 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                         <VariantImages />
                         {editMode && variant && (
                             <Button
+                                disabled={
+                                    status === "executing" ||
+                                    !form.formState.isValid ||
+                                    !form.formState.isDirty
+                                }
                                 type="button"
                                 onClick={e => {
                                     e.preventDefault();
