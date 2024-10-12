@@ -48,6 +48,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
             form.setValue('editMode', true);
             form.setValue('id', variant.id);
             form.setValue('productId', variant.productId);
+            form.setValue('color', variant.color);
             form.setValue('productType', variant.productType);
             form.setValue('tags', variant.variantTags.map((tag) => {
                 return tag.tag;
@@ -57,7 +58,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                 size: image.size,
                 url: image.url,
             }))
-            )
+            );
         }
     }
 
@@ -88,7 +89,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
     function onSubmit(values: z.infer<typeof productVariantSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        // console.log(values)
+        // console.log(values);
         execute(values);
     }
 
@@ -159,22 +160,25 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                             )}
                         />
                         <VariantImages />
-                        {editMode && variant && (
-                            <Button
-                                disabled={
-                                    status === "executing" ||
-                                    !form.formState.isValid ||
-                                    !form.formState.isDirty
-                                }
-                                type="button"
-                                onClick={e => {
-                                    e.preventDefault();
-                                }}
-                            >
-                                Delete Variant
-                            </Button>
-                        )}
-                        <Button type="submit">{editMode ? 'Edit variant' : 'Create variant'}</Button>
+                        <div className="flex gap-4 items-center justify-center">
+                            {editMode && variant && (
+                                <Button
+                                    variant={'destructive'}
+                                    disabled={
+                                        status === "executing" ||
+                                        !form.formState.isValid ||
+                                        !form.formState.isDirty
+                                    }
+                                    type="button"
+                                    onClick={e => {
+                                        e.preventDefault();
+                                    }}
+                                >
+                                    Delete Variant
+                                </Button>
+                            )}
+                            <Button type="submit">{editMode ? 'Edit variant' : 'Create variant'}</Button>
+                        </div>
                     </form>
                 </Form>
             </DialogContent>

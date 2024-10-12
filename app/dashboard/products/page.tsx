@@ -15,7 +15,8 @@ export default async function ProductsPage() {
     if (!products) throw new Error('Error on server');
 
     const dataTable = products.map((product) => {
-        console.log(product.productVariant);
+        // console.log(product.productVariant);
+        // console.log(product);
         const time = new Date(product.created!);
         const realTime = time.toLocaleString('pe-PE', { timeZone: 'UTC', month: '2-digit', year: '2-digit', day: '2-digit' });
 

@@ -3,7 +3,6 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/comp
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,

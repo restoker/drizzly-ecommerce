@@ -47,8 +47,7 @@ export const columns: ColumnDef<ProductColumn>[] = [
         header: 'Variants',
         cell: ({ row }) => {
             const variants = row.getValue('variants') as VariantsWithImagesTags[];
-            console.log(variants);
-            console.log(variants);
+            // console.log(variants);
             return (
                 <div className="flex gap-2">
                     {variants.map((variant) => (
@@ -62,7 +61,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
                                             editMode={true}
                                         >
                                             <div
-                                                className={`w-5 h-5 rounded-full bg-[${variant.color}]`}
+                                                className={`w-5 h-5 rounded-full`}
+                                                style={{
+                                                    backgroundColor: variant.color
+                                                }}
                                                 key={variant.id}
                                             />
                                         </ProductVariant>
@@ -76,7 +78,10 @@ export const columns: ColumnDef<ProductColumn>[] = [
                     ))}
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger asChild className="flex justify-center w-full">
+                            <TooltipTrigger
+                                asChild
+                                className="flex justify-center w-full"
+                            >
                                 <span>
                                     <ProductVariant
                                         editMode={false}
