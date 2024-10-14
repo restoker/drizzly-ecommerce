@@ -41,11 +41,12 @@ export const createVariantAction = actionClient
                         url: image.url,
                         variantId: editVariant[0].id,
                         order: i,
+                        key: image.key,
                     }))
                 );
 
                 revalidatePath('/dashboard/products');
-                return { ok: true, msg: 'Product was updated' };
+                return { ok: true, msg: 'Variant was updated' };
             }
 
             if (!editMode) {
@@ -67,11 +68,12 @@ export const createVariantAction = actionClient
                         url: image.url,
                         variantId: newVariant[0].id,
                         order: i,
+                        key: image.key,
                     }))
                 );
 
                 revalidatePath('/dashboard/products');
-                return { ok: true, msg: 'Product was created' };
+                return { ok: true, msg: 'Variant was created' };
             }
         } catch (error) {
             return {

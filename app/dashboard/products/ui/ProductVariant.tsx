@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { VariantsWithImagesTags } from "@/lib/infer-type";
 import { productVariantSchema } from "@/types/product-variant-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { InputTags } from "./InputTags";
@@ -24,7 +24,7 @@ interface FormProps {
 }
 
 const ProductVariant = ({ editMode, productId, variant, children }: FormProps) => {
-
+    const [open, setOpen] = useState(false);
     const form = useForm<z.infer<typeof productVariantSchema>>({
         resolver: zodResolver(productVariantSchema),
         defaultValues: {
@@ -75,6 +75,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
         onSuccess: ({ data }) => {
             if (data) {
                 if (data.ok) {
+                    if (!editMode) setOpen(false);
                     toast.success(data.msg, { dismissible: true });
                 } else {
                     toast.error(data.msg, { dismissible: true });
@@ -94,7 +95,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
     }
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger>
                 {children}
             </DialogTrigger>

@@ -1,0 +1,1 @@
+ALTER TABLE "variantImages" ADD COLUMN "key" text NOT NULL;
