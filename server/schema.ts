@@ -121,6 +121,7 @@ export const variantImages = pgTable('variantImages', {
     id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
     url: text('url').notNull(),
     size: real('size').notNull(),
+    key: text('key').notNull(),
     name: text('name').notNull(),
     order: real('order').notNull(),
     variantId: text("variantId").notNull()

@@ -57,6 +57,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                 name: image.name,
                 size: image.size,
                 url: image.url,
+                // key: image.key,
             }))
             );
         }

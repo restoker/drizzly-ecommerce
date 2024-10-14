@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 export const createVariantAction = actionClient
     .schema(productVariantSchema)
     .action(async ({ parsedInput: { id, editMode, color, productId, productType, tags, variantImages: newImages } }) => {
-        console.log(newImages);
+        // console.log(newImages);
         try {
             //verificar si el producto existe 
             const product = await db.query.products.findFirst({
@@ -41,7 +41,7 @@ export const createVariantAction = actionClient
                         url: image.url,
                         variantId: editVariant[0].id,
                         order: i,
-                        key: image.key,
+                        key: image.key as string,
                     }))
                 );
 
@@ -68,7 +68,7 @@ export const createVariantAction = actionClient
                         url: image.url,
                         variantId: newVariant[0].id,
                         order: i,
-                        key: image.key,
+                        key: image.key as string,
                     }))
                 );
 

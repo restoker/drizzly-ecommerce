@@ -19,7 +19,7 @@ export default async function ProductsPage() {
         // console.log(product);
         const time = new Date(product.created!);
         const realTime = time.toLocaleString('pe-PE', { timeZone: 'UTC', month: '2-digit', year: '2-digit', day: '2-digit' });
-
+        // console.log(product.productVariant[0].variantImages);
         if (product.productVariant.length === 0) {
             return {
                 id: product.id,
@@ -28,6 +28,7 @@ export default async function ProductsPage() {
                 price: product.price,
                 variants: [],
                 image: placeholder.src,
+
                 // created: realTime,
             }
         }

@@ -10,8 +10,8 @@ export const productVariantSchema = z.object({
     variantImages: z.array(z.object({
         url: z.string().refine((url) => url.search('blob:') !== 0, { message: 'Plese wait for the image to upload' }),
         size: z.number(),
+        name: z.string(),
         key: z.string().optional(),
         id: z.number().optional(),
-        name: z.string(),
     }))
 })

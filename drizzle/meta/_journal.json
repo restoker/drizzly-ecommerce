@@ -134,6 +134,34 @@
       "when": 1728918043482,
       "tag": "0018_kind_mac_gargan",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1728932189657,
+      "tag": "0019_stormy_agent_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1728932679648,
+      "tag": "0020_zippy_zarek",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1728933972378,
+      "tag": "0021_known_scarlet_witch",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1728934350339,
+      "tag": "0022_aspiring_greymalkin",
+      "breakpoints": true
     }
   ]
 }

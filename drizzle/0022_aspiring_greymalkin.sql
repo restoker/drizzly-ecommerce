@@ -1,0 +1,1 @@
+ALTER TABLE "variantImages" ALTER COLUMN "key" SET DATA TYPE text;
