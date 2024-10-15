@@ -15,6 +15,7 @@ import { z } from 'zod';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { TrashIcon } from '@heroicons/react/24/outline';
+import { deleteUTFiles } from '@/server/actions/delete-images';
 
 const VariantImages = () => {
     const { getValues, control, setError } = useFormContext<z.infer<typeof productVariantSchema>>();
@@ -22,6 +23,12 @@ const VariantImages = () => {
         control,
         name: 'variantImages'
     });
+
+    const deleteImage = async (key: any) => {
+        const imageToDelete = [key];
+        await deleteUTFiles(imageToDelete);
+    }
+
     return (
         <div>
             <FormField
@@ -117,12 +124,15 @@ const VariantImages = () => {
                                         <Button
                                             variant={'ghost'}
                                             className='rounded-full scale-110'
-                                            onClick={(e) => {
+                                            onClick={async (e) => {
                                                 e.preventDefault();
+                                                await deleteImage(field.key)
                                                 remove(i);
                                             }}
                                         >
-                                            <TrashIcon className='h-4 w-4' />
+                                            <TrashIcon
+                                                className='h-4 w-4'
+                                            />
                                         </Button>
                                     </TableCell>
                                 </TableRow>

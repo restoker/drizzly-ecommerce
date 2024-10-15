@@ -22,4 +22,4 @@ export const deleteVariantAction = actionClient
         } catch (e) {
             return { ok: false, msg: 'Error on server' };
         }
-    })
+    });
