@@ -14,7 +14,7 @@ import { modalStore } from "@/store/alertsStore";
 import Link from "next/link";
 import { VariantsWithImagesTags } from "@/lib/infer-type";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import ProductVariant from "./ui/ProductVariant";
+import { ProductVariant } from "./ui/ProductVariant";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 type ProductColumn = {

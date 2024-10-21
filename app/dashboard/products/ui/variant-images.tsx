@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import {
     Table,
@@ -16,6 +16,8 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { deleteUTFiles } from '@/server/actions/delete-images';
+import { Reorder } from 'framer-motion';
+
 
 const VariantImages = () => {
     const { getValues, control, setError } = useFormContext<z.infer<typeof productVariantSchema>>();
@@ -23,6 +25,8 @@ const VariantImages = () => {
         control,
         name: 'variantImages'
     });
+
+    const [active, setActive] = useState(0);
 
     const deleteImage = async (key: any) => {
         const imageToDelete = [key];
@@ -95,18 +99,38 @@ const VariantImages = () => {
                             {/* <TableHead className="text-right">Amount</TableHead> */}
                         </TableRow>
                     </TableHeader>
-                    <TableBody>
+                    <Reorder.Group
+                        as='tbody'
+                        values={fields}
+                        onReorder={(e) => {
+                            const activeElement = fields[active];
+                            e.map((item, i) => {
+                                if (item === activeElement) {
+                                    move(active, i);
+                                    setActive(i);
+                                    return;
+                                }
+                                return;
+                            })
+                        }}
+                    >
                         {fields.map((field, i) => {
                             return (
-                                <TableRow key={`key-${i}`} className={
-                                    cn(field.url.search('blob:') === 0
-                                        ?
-                                        'animate-pulse transition-all'
-                                        :
-                                        '',
-                                        'text-sm font-bold text-muted-foreground hover:text-amber-400'
-                                    )
-                                }
+                                <Reorder.Item
+                                    as='tr'
+                                    value={field}
+                                    key={field.id}
+                                    id={field.id}
+                                    onDragStart={() => setActive(i)}
+                                    className={
+                                        cn(field.url.search('blob:') === 0
+                                            ?
+                                            'animate-pulse transition-all'
+                                            :
+                                            '',
+                                            'text-sm font-bold text-muted-foreground hover:text-amber-400'
+                                        )
+                                    }
                                 >
                                     <TableCell className='font-medium'>{i}</TableCell>
                                     <TableCell>{field.name}</TableCell>
@@ -135,10 +159,10 @@ const VariantImages = () => {
                                             />
                                         </Button>
                                     </TableCell>
-                                </TableRow>
+                                </Reorder.Item>
                             );
                         })}
-                    </TableBody>
+                    </Reorder.Group>
                 </Table>
             </div>
         </div>

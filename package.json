@@ -12,6 +12,7 @@
     "db:studio": "drizzle-kit studio --host localhost --port 3002 --verbose --config drizzle.config.ts"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.17.6",
     "@alienkitty/space.js": "^1.2.0",
     "@auth/drizzle-adapter": "^1.4.1",
     "@gsap/react": "^2.1.1",
@@ -33,6 +34,7 @@
     "@tiptap/react": "^2.6.6",
     "@tiptap/starter-kit": "^2.6.6",
     "@uploadthing/react": "^6.7.2",
+    "algoliasearch": "^5.9.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

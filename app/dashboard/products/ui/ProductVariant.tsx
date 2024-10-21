@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { VariantsWithImagesTags } from "@/lib/infer-type";
 import { productVariantSchema } from "@/types/product-variant-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { InputTags } from "./InputTags";
@@ -15,6 +15,7 @@ import VariantImages from "./variant-images";
 import { useAction } from "next-safe-action/hooks";
 import { createVariantAction } from "@/server/actions/create-product-variant";
 import { toast } from "sonner";
+import { deleteVariantAction } from "@/server/actions/delete-variant";
 
 interface FormProps {
     editMode: boolean,
@@ -23,7 +24,7 @@ interface FormProps {
     children: React.ReactNode,
 }
 
-const ProductVariant = ({ editMode, productId, variant, children }: FormProps) => {
+export const ProductVariant = forwardRef(({ editMode, productId, variant, children }: FormProps, ref) => {
     const [open, setOpen] = useState(false);
     const form = useForm<z.infer<typeof productVariantSchema>>({
         resolver: zodResolver(productVariantSchema),
@@ -174,6 +175,8 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
                                     type="button"
                                     onClick={e => {
                                         e.preventDefault();
+                                        // if (!form.getValues('id')) return;
+                                        useAction(deleteVariantAction).execute({ id: variant.id })
                                     }}
                                 >
                                     Delete Variant
@@ -186,7 +189,7 @@ const ProductVariant = ({ editMode, productId, variant, children }: FormProps) =
             </DialogContent>
         </Dialog>
     );
-};
+});
 
-export default ProductVariant;
+
 

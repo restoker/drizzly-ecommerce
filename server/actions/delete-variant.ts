@@ -6,6 +6,7 @@ import { db } from "..";
 import { productVariant } from "../schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { deleteUTFiles } from "./delete-images";
 
 export const deleteVariantAction = actionClient
     .schema(z.object({ id: z.string().trim().uuid() }))
@@ -16,6 +17,18 @@ export const deleteVariantAction = actionClient
                 where: (productVariant, { eq }) => eq(productVariant.id, id)
             });
             if (!variant) return { ok: false, msg: `Product with ${id} not found` };
+            // search images from omage variant
+            const images = await db.query.variantImages.findMany({
+                where: (variantImages, { eq }) => eq(variantImages.variantId, variant?.id),
+            })
+            // delete images from uploadthings
+            let deleteKeys: string[] = [];
+            for (const image of images) {
+                deleteKeys = [...deleteKeys, image.key];
+            }
+
+            await deleteUTFiles(deleteKeys);
+
             await db.delete(productVariant).where(eq(productVariant.id, id));
             revalidatePath('dashboard/products')
             return { ok: false, msg: `${variant.id} was eliminated` };
